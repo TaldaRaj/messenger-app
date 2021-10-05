@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import {ChatEngine} from "react-chat-engine"
+import ChatFeed from "./components/ChatFeed"
+import {LoginForm} from "./components/LoginForm"
+import RegisterForm from "./components/RegisterForm"
+import {BrowserRouter as Router,Switch,Route} from "react-router-dom"
+import Error from "./components/Error"
+import "./App.css"
 
 function App() {
+
+  const projectID = 'cac9f54b-719a-426a-849d-bcb112a8ee20'
+
+  const user = localStorage.getItem('username')
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+      <Switch>
+        <Route exact path="/">
+          {user?
+        (<ChatEngine
+			height='100vh'
+			userName={localStorage.getItem('username')}
+			userSecret={localStorage.getItem('password')}
+			projectID={projectID}
+      renderChatFeed={(chatAppProps) =>  <ChatFeed {...chatAppProps}/>}
+      onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+    />) : 
+    (<LoginForm/>)}
+        </Route>
+        <Route exact path="/register">
+          {user?
+        (<ChatEngine
+			height='100vh'
+			userName={localStorage.getItem('username')}
+			userSecret={localStorage.getItem('password')}
+			projectID={projectID}
+      renderChatFeed={(chatAppProps) =>  <ChatFeed {...chatAppProps}/>}
+      onNewMessage={() => new Audio('https://chat-engine-assets.s3.amazonaws.com/click.mp3').play()}
+    />) : 
+    (<RegisterForm/>)}
+        </Route>
+       
+  
+   </Switch>
   );
+
+ 
 }
 
 export default App;

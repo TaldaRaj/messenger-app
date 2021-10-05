@@ -2,8 +2,8 @@ import {ChatEngine} from "react-chat-engine"
 import ChatFeed from "./components/ChatFeed"
 import {LoginForm} from "./components/LoginForm"
 import RegisterForm from "./components/RegisterForm"
-import {BrowserRouter as Router,Switch,Route} from "react-router-dom"
-import Error from "./components/Error"
+import {Switch,Route} from "react-router-dom"
+//import Error from "./components/Error"
 import "./App.css"
 
 function App() {
